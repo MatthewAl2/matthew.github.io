@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Matthew Alex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Calibre:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a192f;
+    --navy-light: #112240;
+    --navy-lighter: #233554;
+    --slate: #8892b0;
+    --slate-light: #a8b2d8;
+    --slate-lightest: #ccd6f6;
+    --white: #e6f1ff;
+    --green: #64ffda;
+    --green-tint: rgba(100,255,218,0.1);
+    --font-sans: 'Inter', 'San Francisco', -apple-system, sans-serif;
+    --font-mono: 'Fira Code', 'Fira Mono', monospace;
+    --transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+    --border-radius: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--navy);
+    color: var(--slate);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.3;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--navy-lighter); color: var(--slate-lightest); }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--navy-lighter); border-radius: 4px; }
+
+  /* Layout */
+  .container {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    gap: 0;
+  }
+
+  /* LEFT PANEL */
+  .left-panel {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 45%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 96px 0 96px;
+    flex-shrink: 0;
+  }
+
+  .left-top { }
+
+  .left-panel h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 600;
+    color: var(--slate-lightest);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .left-panel h2 {
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 400;
+    color: var(--slate-light);
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+
+  .tagline {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--slate);
+    max-width: 320px;
+  }
+
+  /* Nav */
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 56px;
+  }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--slate);
+    transition: var(--transition);
+  }
+
+  nav a .nav-line {
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--slate);
+    transition: var(--transition);
+  }
+
+  nav a:hover { color: var(--slate-lightest); }
+  nav a:hover .nav-line { width: 64px; background: var(--slate-lightest); }
+
+  nav a.active { color: var(--slate-lightest); }
+  nav a.active .nav-line { width: 64px; background: var(--green); }
+
+  /* Social icons */
+  .social-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .social-links a {
+    color: var(--slate);
+    transition: var(--transition);
+  }
+
+  .social-links a:hover {
+    color: var(--green);
+    transform: translateY(-3px);
+  }
+
+  .social-links svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  /* RIGHT PANEL */
+  .right-panel {
+    flex: 1;
+    padding: 96px 0 96px 64px;
+    max-width: 640px;
+  }
+
+  section {
+    margin-bottom: 120px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+    white-space: nowrap;
+  }
+
+  .section-heading span {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 400;
+    margin-right: 4px;
+  }
+
+  .section-heading h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--slate-lightest);
+    letter-spacing: 0.5px;
+  }
+
+  .section-heading::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--navy-lighter);
+  }
+
+  /* About */
+  #about p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--slate);
+    margin-bottom: 16px;
+  }
+
+  #about p a {
+    color: var(--green);
+    border-bottom: 1px solid transparent;
+  }
+  #about p a:hover { border-bottom-color: var(--green); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 200px));
+    gap: 4px 0;
+    margin-top: 24px;
+    list-style: none;
+  }
+
+  .skills-grid li {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--slate);
+    padding: 4px 0 4px 20px;
+    position: relative;
+  }
+
+  .skills-grid li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* Experience */
+  .experience-tabs {
+    display: flex;
+    gap: 0;
+  }
+
+  .tab-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+    list-style: none;
+    border-left: 2px solid var(--navy-lighter);
+  }
+
+  .tab-list button {
+    background: none;
+    border: none;
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+    cursor: pointer;
+    padding: 12px 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--slate);
+    text-align: left;
+    white-space: nowrap;
+    transition: var(--transition);
+    line-height: 1.4;
+  }
+
+  .tab-list button:hover {
+    background: var(--green-tint);
+    color: var(--green);
+  }
+
+  .tab-list button.active {
+    border-left-color: var(--green);
+    color: var(--green);
+    background: var(--green-tint);
+  }
+
+  .tab-panels { flex: 1; padding-left: 24px; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .job-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--slate-lightest);
+    margin-bottom: 4px;
+  }
+
+  .job-title .company {
+    color: var(--green);
+  }
+
+  .job-meta {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--slate);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .job-duties {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .job-duties li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--slate);
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .job-duties li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Projects */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 24px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    cursor: default;
+    position: relative;
+  }
+
+  .project-card:hover {
+    background: var(--navy-light);
+    box-shadow: 0 0 0 1px var(--navy-lighter);
+  }
+
+  .project-card:hover .project-title { color: var(--green); }
+
+  .project-year {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--slate);
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .project-body {}
+
+  .project-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--slate-lightest);
+    margin-bottom: 8px;
+    transition: var(--transition);
+  }
+
+  .project-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--slate);
+    margin-bottom: 16px;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--green);
+    background: var(--green-tint);
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+
+  /* Contact / Footer */
+  #contact {
+    text-align: center;
+    padding-bottom: 32px;
+  }
+
+  #contact .overline {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green);
+    margin-bottom: 16px;
+  }
+
+  #contact h3 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 600;
+    color: var(--slate-lightest);
+    margin-bottom: 24px;
+  }
+
+  #contact p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--slate);
+    max-width: 480px;
+    margin: 0 auto 48px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 18px 48px;
+    border: 1px solid var(--green);
+    border-radius: var(--border-radius);
+    color: var(--green);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: var(--transition);
+  }
+
+  .btn:hover {
+    background: var(--green-tint);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.8;
+  }
+
+  footer a {
+    color: var(--green);
+    transition: var(--transition);
+  }
+
+  footer a:hover { opacity: 0.7; }
+
+  /* Cursor dot */
+  .cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  /* Fade-in animation */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate { animation: fadeInUp 0.6s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .container {
+      flex-direction: column;
+      padding: 0 32px;
+    }
+    .left-panel {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      padding: 80px 0 48px;
+    }
+    nav { display: none; }
+    .right-panel {
+      padding: 0 0 96px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 20px; }
+    .left-panel { padding: 60px 0 40px; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-year { padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursor"></div>
+
+<div class="container">
+
+  <!-- LEFT -->
+  <aside class="left-panel">
+    <div class="left-top">
+      <h1 class="animate delay-1">Matthew<br/>Alex</h1>
+      <h2 class="animate delay-2">Software Engineer &amp; ML Researcher</h2>
+      <p class="tagline animate delay-3">I build intelligent, full-stack systems that live at the intersection of machine learning and real-world impact.</p>
+
+      <nav class="animate delay-4">
+        <a href="#about" class="active">
+          <span class="nav-line"></span>
+          About
+        </a>
+        <a href="#experience">
+          <span class="nav-line"></span>
+          Experience
+        </a>
+        <a href="#projects">
+          <span class="nav-line"></span>
+          Projects
+        </a>
+        <a href="#contact">
+          <span class="nav-line"></span>
+          Contact
+        </a>
+      </nav>
+    </div>
+
+    <div class="social-links animate delay-5">
+      <!-- GitHub -->
+      <a href="https://github.com/MatthewAl2" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+        </svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://linkedin.com/in/malex2" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      <!-- Email -->
+      <a href="mailto:matthewalex2022@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h1.82L12 11.82l8.545-7.999h1.82A1.636 1.636 0 0 1 24 5.457z"/>
+        </svg>
+      </a>
+      <!-- Phone -->
+      <a href="tel:2079075955" aria-label="Phone">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- RIGHT -->
+  <main class="right-panel">
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-heading">
+        <h3><span>01. </span>About Me</h3>
+      </div>
+      <p>
+        Hi! I'm Matthew, a Computer Science student at <a href="https://www.wpi.edu" target="_blank">Worcester Polytechnic Institute</a> with a 3.91 GPA, graduating March 2026. I love building things that are both technically rigorous and genuinely useful — whether that's multimodal AI pipelines, cross-platform mobile apps, or scalable cloud infrastructure.
+      </p>
+      <p>
+        My work spans machine learning research, full-stack development, and systems engineering. I'm equally comfortable training deep neural networks as I am architecting containerized backends on AWS.
+      </p>
+      <p>Here are a few technologies I've been working with recently:</p>
+      <ul class="skills-grid">
+        <li>Python / PyTorch</li>
+        <li>TypeScript / React</li>
+        <li>Next.js / Node.js</li>
+        <li>PostgreSQL / MongoDB</li>
+        <li>Docker / Kubernetes</li>
+        <li>AWS / CI/CD</li>
+        <li>Swift / Kotlin</li>
+        <li>LLMs / Gemini API</li>
+      </ul>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-heading">
+        <h3><span>02. </span>Where I've Worked</h3>
+      </div>
+
+      <div class="experience-tabs">
+        <ul class="tab-list" role="tablist">
+          <li><button class="active" role="tab" data-panel="axon">Axon / WPI</button></li>
+          <li><button role="tab" data-panel="civix">Civix</button></li>
+          <li><button role="tab" data-panel="openlearning">Open Learning</button></li>
+          <li><button role="tab" data-panel="hyperblox">Hyperblox</button></li>
+        </ul>
+
+        <div class="tab-panels">
+
+          <div class="tab-panel active" id="panel-axon" role="tabpanel">
+            <p class="job-title">Machine Learning Researcher <span class="company">@ Axon — WPI</span></p>
+            <p class="job-meta">Aug 2025 – Present<br/>Worcester, MA</p>
+            <ul class="job-duties">
+              <li>Developed a VQA-driven multimodal video captioning pipeline for police body-worn camera footage, integrating transcription, visual summarization, and QA-based reasoning to outperform standard VLM captioning.</li>
+              <li>Built a hierarchical multimodal representation (scene, entity, action, semantic levels) from video and audio using WhisperX, LLaVA NeXT-Video, and Gemini for fine-grained visual question generation.</li>
+              <li>Built an automated testing service leveraging strict rubrics and the Gemini API for AI-enabled grading.</li>
+              <li>Automated software build processes on WPI servers via Windows batch scripting, eliminating 2 hours of manual effort per build cycle.</li>
+            </ul>
+          </div>
+
+          <div class="tab-panel" id="panel-civix" role="tabpanel">
+            <p class="job-title">Software Engineer (Contractor) <span class="company">@ Civix</span></p>
+            <p class="job-meta">Jan 2026 – May 2026<br/>Nashua, NH</p>
+            <ul class="job-duties">
+              <li>Architected a cross-platform reporting ecosystem (iOS, Android, Web) using Swift and Kotlin/Jetpack Compose, implementing an automated city issue reporting flow through AI-assisted categorization.</li>
+              <li>Engineered an AI-driven "Analyze with AI" feature that uses computer vision to automatically detect infrastructure issues, generate technical descriptions, and assign city-specific issue categories in real-time.</li>
+              <li>Developed a robust backend using PostgreSQL and Docker, deploying scalable containerized services to AWS for concurrent reporting data and high-resolution image uploads.</li>
+              <li>Implemented location-aware workspace logic that dynamically validates user coordinates against supported service areas, ensuring high data integrity and localized reporting accuracy.</li>
+            </ul>
+          </div>
+
+          <div class="tab-panel" id="panel-openlearning" role="tabpanel">
+            <p class="job-title">Student Developer <span class="company">@ Open Learning WPI</span></p>
+            <p class="job-meta">Aug 2024 – Mar 2025<br/>Worcester, MA</p>
+            <ul class="job-duties">
+              <li>Developed an Open Educational Resources (OER) platform on AWS to publicly share over 4 terabytes of WPI teaching materials, advancing academic accessibility and knowledge sharing.</li>
+              <li>Led end-to-end full-stack development using MongoDB, Express.js, Next.js, and Node.js, as well as CI/CD practices, to build a scalable and secure OER content distribution infrastructure.</li>
+              <li>Integrated Canvas API and Workday API to automate and publish faculty course materials directly from institutional course management systems, optimizing content updates and accuracy.</li>
+            </ul>
+          </div>
+
+          <div class="tab-panel" id="panel-hyperblox" role="tabpanel">
+            <p class="job-title">Software Engineer Intern <span class="company">@ Hyperblox Inc.</span></p>
+            <p class="job-meta">Jun 2023 – Aug 2023<br/>Nashua, NH</p>
+            <ul class="job-duties">
+              <li>Built scalable full-stack systems using MySQL, REST APIs, microservices architecture, and software engineering best practices including Agile, CI/CD, and object-oriented design.</li>
+              <li>Optimized backend performance while integrating frontend applications using React, JavaScript, TypeScript, HTML5, CSS3, and modern UI frameworks.</li>
+              <li>Ensured system reliability and data integrity using backup and recovery strategies, RAID 10, Git-based version control, automated testing, cloud deployment, and DevOps workflows.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-heading">
+        <h3><span>03. </span>Things I've Built</h3>
+      </div>
+
+      <div class="projects-list">
+
+        <div class="project-card">
+          <div class="project-year">Oct 2024</div>
+          <div class="project-body">
+            <p class="project-title">EASE — SASEHACK 2024</p>
+            <p class="project-description">A mental wellness planner application that gamifies tasks using a Deep Neural Network powered by Google's BERT model. The model quantifies text input into a difficulty level with 90% confidence, making productivity feel rewarding rather than overwhelming.</p>
+            <div class="project-tech">
+              <span class="tech-tag">ReactJS</span>
+              <span class="tech-tag">Flask</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">TensorFlow</span>
+              <span class="tech-tag">BERT</span>
+              <span class="tech-tag">Axios</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-year">2024–25</div>
+          <div class="project-body">
+            <p class="project-title">OER Platform — Open Learning WPI</p>
+            <p class="project-description">An open-source educational resources platform built to host 4+ TB of WPI course content. Integrated with Canvas and Workday APIs for automated content publishing from institutional systems, serving faculty and students across the university.</p>
+            <div class="project-tech">
+              <span class="tech-tag">Next.js</span>
+              <span class="tech-tag">MongoDB</span>
+              <span class="tech-tag">Express.js</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">AWS</span>
+              <span class="tech-tag">Canvas API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-year">2026</div>
+          <div class="project-body">
+            <p class="project-title">Civix — City Issue Reporting App</p>
+            <p class="project-description">A cross-platform mobile and web app enabling citizens to report city infrastructure issues. Features AI-powered computer vision for automatic issue detection and categorization, with location-aware workspace validation and a Dockerized AWS backend.</p>
+            <div class="project-tech">
+              <span class="tech-tag">Swift</span>
+              <span class="tech-tag">Kotlin</span>
+              <span class="tech-tag">Jetpack Compose</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Docker</span>
+              <span class="tech-tag">AWS</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <p class="overline">04. What's Next?</p>
+      <h3>Get In Touch</h3>
+      <p>I'm currently looking for new opportunities. Whether you have a question, want to collaborate, or just want to say hi — my inbox is always open.</p>
+      <a href="mailto:matthewalex2022@gmail.com" class="btn">Say Hello</a>
+    </section>
+
+    <footer>
+      <p>Designed &amp; Built by <a href="https://github.com/MatthewAl2">Matthew Alex</a></p>
+      <p>Inspired by <a href="https://brittanychiang.com" target="_blank">Brittany Chiang</a></p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Cursor dot
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.opacity = '1';
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  // Tab switching
+  document.querySelectorAll('.tab-list button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-list button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    });
+  });
+
+  // Active nav highlighting on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
